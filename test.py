@@ -3,9 +3,8 @@ import pymysql
 import json
 from pyquery import PyQuery as pq
 
-# 使用正则表达式爬取猫眼电影的top100
-db = pymysql.connect(host='localhost', user='root', password='root', port=3306, db='spider')
-
+# 使用pyquery爬取'http://www.piaofang168.com/'的实时票房
+db = pymysql.connect(host='localhost', user='root', password='w1S255', port=3306, db='spider')
 
 def get_one_page(url):
     headers = {
@@ -62,7 +61,7 @@ def parse_one_page(html):
 
 def write_to_mysql(item):
     cursor = db.cursor()
-    sql = 'INSERT INTO piaofang VALUES (0,"{0}","{1}","{2}","{3}","{4}","{5}");'.format(item['name'],item['real_time_money'],item['total_money'],item['percent'],item['total_times'],item['release_time'])
+    sql = 'INSERT INTO moive_spider_piaofang VALUES (0,"{0}","{1}","{2}","{3}","{4}","{5}");'.format(item['name'],item['real_time_money'],item['total_money'],item['percent'],item['total_times'],item['release_time'])
     try:
         # print(sql)
         cursor.execute(sql)
